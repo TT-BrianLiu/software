@@ -65,5 +65,9 @@ map f :call ShowFuncName() <CR>
 set diffopt+=algorithm:patience
 
 " ---------- PLUGIN SETTINGS ---------- "
+" fzf - ignore files when searching
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+
 " Nerdtree - open with Ctrl-N
 nmap <C-n> :NERDTreeFind<CR>
