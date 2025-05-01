@@ -8,6 +8,7 @@ Plug 'scrooloose/nerdTree'
 Plug 'tpope/vim-fugitive'
 Plug 'nordtheme/vim'
 Plug 'vim-airline/vim-airline'
+Plug 'github/copilot.vim' " Requires Vim 9.0.0185 or higher and Node.js to render
 
 call plug#end()
 
