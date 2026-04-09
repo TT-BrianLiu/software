@@ -8,7 +8,7 @@ Plug 'scrooloose/nerdTree'
 Plug 'tpope/vim-fugitive'
 Plug 'nordtheme/vim'
 Plug 'vim-airline/vim-airline'
-Plug 'github/copilot.vim' " Requires Vim 9.0.0185 or higher and Node.js to render
+Plug 'moll/vim-bbye'
 
 call plug#end()
 
@@ -69,6 +69,10 @@ set diffopt+=algorithm:patience
 " fzf - ignore files when searching
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+
+" vim-airline - show tabline with filename at top
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " Nerdtree - open with Ctrl-N
 nmap <C-n> :NERDTreeFind<CR>

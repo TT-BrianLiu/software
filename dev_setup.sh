@@ -1,7 +1,7 @@
 # (Optional) Install bash-it: https://github.com/Bash-it/bash-it
 git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
 ~/.bash_it/install.sh # NOTE: This overrides .bashrc by default; select Yes when it asks if you want to append instead
-# Change default theme to metal: export BASH_IT_THEME='metal'
+sed -i 's/export BASH_IT_THEME=.*/export BASH_IT_THEME='\''metal'\''/' ~/.bashrc
 source ~/.bashrc
 
 
@@ -26,13 +26,29 @@ sudo apt-get install ripgrep
 git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
 
 
-# Install Copilot for vim: https://github.com/github/copilot.vim
-# Upgrade Vim to 9.0.0185 or newer
-sudo add-apt-repository ppa:jonathonf/vim
-sudo apt install vim
-# Install Node.js
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
-source ~/.bashrc
-nvm install 22
-# Plugin 'github/copilot.vim' is in .vimrc
-# Open Vim and run :Copilot setup to enter GitHub credentials
+# Install Claude Code: https://docs.anthropic.com/en/docs/claude-code
+curl -fsSL https://claude.ai/install.sh | bash
+
+
+# Copy dotfiles to home directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+while true; do
+  read -p "Copy dotfiles (.vimrc, .tmux.conf, .gitconfig) to ~? [y/n] " response
+  echo
+  [[ "$response" =~ ^[YyNn]$ ]] && break
+  echo "Please enter y or n"
+done
+if [[ "$response" =~ ^[Yy]$ ]]; then
+  for file in .vimrc .tmux.conf .gitconfig; do
+    if [ -f "$SCRIPT_DIR/$file" ]; then
+      if [ -f ~/"$file" ]; then
+        cp ~/"$file" ~/"$file.bak"
+        echo "Backed up ~/$file to ~/$file.bak"
+      fi
+      cp "$SCRIPT_DIR/$file" ~/"$file"
+      echo "Copied $file to ~"
+    fi
+  done
+else
+  echo "Skipping dotfiles"
+fi
