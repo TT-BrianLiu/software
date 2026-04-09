@@ -15,6 +15,12 @@ call plug#end()
 
 " ---------- VIM SETTINGS ---------- "
 filetype plugin indent on
+" Use system clipboard for yank/paste
+if has('mac')
+  set clipboard=unnamed
+else
+  set clipboard=unnamedplus
+endif
 " On pressing tab, insert 2 spaces
 set expandtab
 " show existing tab with 2 spaces width
@@ -62,8 +68,10 @@ map f :call ShowFuncName() <CR>
 
 
 " ---------- KEY BINDINGS ------------ "
-" smarter diff algorithm
-set diffopt+=algorithm:patience
+" smarter diff algorithm (requires xdiff, not available on Mac)
+if !has('mac')
+  set diffopt+=algorithm:patience
+endif
 
 " ---------- PLUGIN SETTINGS ---------- "
 " fzf - ignore files when searching
