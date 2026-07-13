@@ -28,6 +28,7 @@ git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
 
 # Install Claude Code: https://docs.anthropic.com/en/docs/claude-code
 curl -fsSL https://claude.ai/install.sh | bash
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
 
 
 # Copy dotfiles to home directory
